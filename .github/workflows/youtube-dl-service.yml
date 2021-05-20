@@ -1,0 +1,19 @@
+name: youtube-dl-service
+on: [push, workflow_dispatch]
+
+jobs:
+  deploy:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: youtube-dl-service deploy
+      env:
+        YOUTUBE_DL_SERVICE_TOKEN: ${{ secrets.YOUTUBE_DL_SERVICE_TOKEN }}
+        ENDPOINT: "vstavrinov/youtube-dl-service/actions/workflows/main.yml"
+      run: |
+        curl -s -X POST                                         \
+            -H "Accept: application/vnd.github.v3+json"         \
+            -H "Authorization: token $YOUTUBE_DL_SERVICE_TOKEN" \
+            -d '{"ref": "master"}'                              \
+        https://api.github.com/repos/$ENDPOINT/dispatches
