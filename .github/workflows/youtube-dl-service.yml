@@ -7,8 +7,15 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: youtube-dl-service deploy
-      env:
-        YOUTUBE_DL_SERVICE_TOKEN: ${{ secrets.YOUTUBE_DL_SERVICE_TOKEN }}
-        ENDPOINT: "vstavrinov/youtube-dl-service/actions/workflows/main.yml"
-      run: ./youtube-dl-service.sh
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 100
+      - name: Fetch tags
+        run: git fetch --depth=100 origin +refs/tags/*:refs/tags/*
+      - name: Install versioningit
+        run: pip install versioningit
+      - name: youtube-dl-service deploy
+        env:
+          YOUTUBE_DL_SERVICE_TOKEN: ${{ secrets.YOUTUBE_DL_SERVICE_TOKEN }}
+          ENDPOINT: "vstavrinov/youtube-dl-service/actions/workflows/main.yml"
+        run: ./youtube-dl-service.sh
