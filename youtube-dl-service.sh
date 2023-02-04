@@ -23,7 +23,7 @@ ENDPOINT=vstavrinov/youtube-dl-service/actions/workflows/main.yml
 COMMIT=$(git rev-parse --short $GITHUB_SHA)
 curl -X POST                                            \
     -H "Accept: application/vnd.github.v3+json"         \
-    -H "Authorization: token $STREAMLINK_SERVICE_TOKEN" \
+    -H "Authorization: token $YOUTUBE_DL_SERVICE_TOKEN" \
     -d '{"ref": "master",
          "inputs":
            {"youtube-dl": "'$COMMIT'"}
